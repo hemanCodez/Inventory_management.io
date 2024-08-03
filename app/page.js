@@ -3,7 +3,7 @@ import Image from "next/image";
 import {useState, useEffect} from 'react';
 import {firestore} from '@/firebase';
 import {Box, Modal, Typography, Stack, TextField, Button} from '@mui/material';
-import {collection, deleteDoc, doc, getDoc, query, setDoc} from "firebase/firestore"; 
+import {collection, deleteDoc, doc, getDocs, query, setDoc, getDoc} from "firebase/firestore"; 
 
 export default function Home() {
   const [inventory, setInventory] = useState([])
@@ -12,7 +12,7 @@ export default function Home() {
 
   const updateInventory = async () => {
     const snapshot = query(collection(firestore, 'inventory'))
-    const docs = await getDoc(snapshot)
+    const docs = await getDocs(snapshot)
     const inventoryList = []
     docs.forEach((doc) => {
       inventoryList.push({ name: doc.id, ...doc.data() })
